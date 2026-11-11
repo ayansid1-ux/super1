@@ -2,91 +2,161 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Proxy Server</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --black: #0c0700;
+            --surface: #160d04;
+            --panel: #1f1408;
+            --line: rgba(225, 29, 42, 0.22);
+            --red: #e11d2a;
+            --red-bright: #ff4d4d;
+            --red-dim: rgba(225, 29, 42, 0.24);
+            --green: #f5c518;
+            --gold: #ffe566;
+            --white: #fff8e8;
+            --grey: #b8a48a;
+            --mono: 'JetBrains Mono', monospace;
+            --display: 'Bebas Neue', sans-serif;
+            --body: 'DM Sans', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background: #0c0700;
-            font-family: Arial, sans-serif;
-            color: #fff8e8;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
+            background: radial-gradient(1200px 560px at 8% -12%, rgba(225, 29, 42, 0.26), transparent 55%),
+                        radial-gradient(900px 480px at 108% 4%, rgba(245, 197, 24, 0.16), transparent 52%),
+                        var(--black);
+            font-family: var(--body);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .page { width: 100%; max-width: 600px; background: #1f1408; border: 1px solid rgba(225, 29, 42, 0.3); border-radius: 8px; padding: 20px; }
-        .app-title { font-size: 32px; font-weight: bold; color: #fff; margin-bottom: 10px; }
-        .app-desc { font-size: 12px; color: #b8a48a; margin-bottom: 20px; text-transform: uppercase; }
-        .install-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(90deg, #e11d2a, #f5c518);
-            color: #fff;
-            text-align: center;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 5px;
+
+        .page {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 12px 24px 60px;
+        }
+
+        .block-header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .block-num {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--red);
+            letter-spacing: 1px;
+        }
+
+        .block-rule {
+            height: 1px;
+            background: var(--line);
+        }
+
+        .block-title {
+            font-family: var(--display);
+            font-size: 13px;
+            letter-spacing: 5px;
+            color: var(--grey);
             text-transform: uppercase;
-            margin-bottom: 20px;
         }
-        .live-comments { background: #160d04; padding: 15px; border-radius: 5px; border: 1px solid rgba(225, 29, 42, 0.2); }
-        .comments-feed { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; max-height: 150px; overflow-y: auto; font-size: 13px; }
-        .row { display: flex; gap: 10px; align-items: center; }
-        .av { width: 24px; height: 24px; border-radius: 50%; }
-    </style>
-</head>
-<body>
-    <div class="page">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://i.ibb.co/zCkQmLg/file-00000000bb4082088830b2ef26fde874.png" alt="Proxy Icon" style="width: 80px; height: 80px; border-radius: 10px;">
-        </div>
-        <div class="app-title">Proxy Server</div>
-        <div class="app-desc">Unlimited Access · Low Ping · No Ban</div>
-        
-        <a href="https://fbwase.com/lottery?source=pb&sourceId=291574479738" target="_blank" class="install-btn">
-            Get Proxy Server
-        </a>
 
-        <div class="live-comments">
-            <div style="font-weight: bold; margin-bottom: 5px; display: flex; justify-content: space-between;">
-                <span>🔴 Live Comments</span>
-                <span id="commentCount" style="font-size: 11px; color: #b8a48a;">865 watching</span>
-            </div>
-            <div class="comments-feed" id="chatList">
-                <div class="row"><div class="av" style="background: rgb(255, 72, 176);"></div><div>Ravi · proxy server mil gaya</div></div>
-                <div class="row"><div class="av" style="background: rgb(232, 93, 4);"></div><div>Karan · working 100% claimed proxy</div></div>
-            </div>
-        </div>
-    </div>
+        .video-block { margin-bottom: 38px; }
 
-    <script>
-        const chatList = document.getElementById('chatList');
-        const commentCountEl = document.getElementById('commentCount');
-        const names = ['Ravi', 'Karan', 'Nikhil', 'Yash', 'Rahul', 'Amit', 'Vikram'];
-        const comments = ['proxy server mil gaya', 'working 100% claimed proxy', 'low ping aa gaya', 'no ban proxy set hai'];
-        const colors = ['rgb(255, 72, 176)', 'rgb(232, 93, 4)', 'rgb(45, 106, 79)', 'rgb(196, 165, 116)'];
+        .video-frame {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 16 / 9;
+            border-top: 3px solid var(--red);
+            border-left: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
 
-        let watchingCount = 865;
-        setInterval(() => {
-            watchingCount += Math.floor(Math.random() * 5) - 2;
-            if (commentCountEl) commentCountEl.textContent = watchingCount + ' watching';
+        .frame-corner {
+            position: absolute;
+            top: 0; left: 0; width: 40px; height: 40px;
+            pointer-events: none; z-index: 4;
+        }
 
-            if (chatList) {
-                const rName = names[Math.floor(Math.random() * names.length)];
-                const rComment = comments[Math.floor(Math.random() * comments.length)];
-                const rColor = colors[Math.floor(Math.random() * colors.length)];
+        .frame-corner::before { content: ''; position: absolute; top: 0; left: 0; width: 40px; height: 3px; background: var(--red); }
+        .frame-corner::after { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 40px; background: var(--red); }
 
-                const row = document.createElement('div');
-                row.className = 'row';
-                row.innerHTML = `<div class="av" style="background: ${rColor};"></div><div>${rName} · ${rComment}</div>`;
-                chatList.appendChild(row);
+        .video-frame video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
 
-                if (chatList.children.length > 6) chatList.removeChild(chatList.firstElementChild);
-                chatList.scrollTop = chatList.scrollHeight;
-            }
-        }, 2500);
-    </script>
-</body>
-</html>
+        .video-play-btn {
+            position: absolute;
+            inset: 0; z-index: 6;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(8, 8, 10, 0.45);
+            border: none; cursor: pointer;
+        }
+
+        .video-play-btn.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .video-play-btn .play-circle {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--red), var(--green));
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 24px rgba(225, 29, 42, 0.45);
+        }
+
+        .video-play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 3px; }
+
+        .video-index {
+            position: absolute; top: 14px; left: 16px;
+            font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+            color: rgba(225, 29, 42, 0.45); z-index: 4; text-transform: uppercase;
+        }
+
+        .ticker-track {
+            display: flex; gap: 50px;
+            animation: ticker 42s linear infinite;
+            white-space: nowrap; width: max-content;
+        }
+
+        .ticker-track span {
+            font-family: var(--display); font-size: 13px;
+            letter-spacing: 4px; color: #fff; text-transform: uppercase;
+        }
+
+        @keyframes ticker {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .card-header-row {
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+            overflow: hidden;
+        }
+
+        .app-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            background: var(--panel);
+            border: 1px solid var(--line);
